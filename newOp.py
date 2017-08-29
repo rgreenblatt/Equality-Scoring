@@ -1,4 +1,5 @@
 import copy
+import sys
 #import calculator as c
 #subset_sum(numbers, target, partial=[]):
 #	s = sum(partial)
@@ -17,28 +18,30 @@ def recursiveAdd(number, g, index, times, total):
 	times = times - 1
 	i = 0
 	u = copy.copy(index)
+	x = False
 	for j in range(u): 
 		for i in range(number):
 			if sum(g[j]) < total:
 				#print j
 				#print i
-				if i == number -1:
-					if g[j][0] <2:	
-						g[j][0] += 1
+				if i == 0 or x:
+					if g[j][i] <2:
+						g[j][i] += 1
+						x = False
 					else:
-						del g[j]
-						index = index - 1
+						x = True
+						#index = index - 1
+					
 				else:
 					temp = g[j][:]
 					#print g
 					#print i
-					if temp[i+1] < 2:
-						temp[i+1] +=1
+					if temp[i] < 2:
+						temp[i] +=1
 						g[index] = temp[:]
 						#print g
 						index += 1
 #						print index+i+1
-		
 	if times == 0:
 		return index
 	else:
@@ -58,6 +61,8 @@ def generateCombinations(total, number):
 #	print g
 	values = copy.copy(recursiveAdd(number, g, 3, total-1, total))
 	#print g
+	print "hi"
+	sys.stdout.flush()
 	del g[values:-1]
 	del g[-1]
 	#print values
@@ -65,7 +70,7 @@ def generateCombinations(total, number):
 
 r = generateCombinations(7, 11)
 #del r[values: -1]
-print (r)
-	
+print len(r)
+print(r)	
 
 				
